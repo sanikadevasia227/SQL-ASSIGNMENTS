@@ -1,0 +1,63 @@
+Create database SAN1; 
+select * from customer;
+select country from customer where country='german';
+select firstname,lastname,firstname+' '+lastname as fullname from customer;
+
+alter table customer add faxnumber nvarchar(50);
+
+select* from customer;
+
+update customer set faxnumber=+81-362-456789 where Id=2;
+
+update customer set faxnumber=+91-362-456789
+where Id=1;
+
+select * from customer where faxnumber is not null;
+select * from customer where faxnumber is null;
+
+select * from customer where firstname like'__r%';
+
+select * from orderitem;
+select * from orders where id in (select orderid from orderitem where unitprice between 106 and 10001);
+
+alter table orders add shippingdate datetime;
+
+select * from orders;
+
+update orders set shippingdate='2022-09-09' where id = '120';
+
+update orders set shippingdate='2022-09-04' where id = '121';
+update orders set shippingdate='2022-09-04' where id = '119';
+
+select * from orders where shippingdate is not null order by shippingdate desc;
+
+alter table orders add shipname varchar(50);
+
+select *from orders;
+select *from orderitem;
+select *from product;
+
+update orders set shipname =' star' where id =120;
+
+select *from orders where shipname like ' star' and (shippingdate between '2022-09-03' and '2022-09-10');
+
+select productid, avg(quantity) as average from orderitem group by productid;
+
+alter table orders add shippingcompany varchar(30);
+update orders set shippingcompany = 'amazon' where id = 120;
+
+select shippingcompany, shipname from orders where shipname is not null;
+
+
+alter table product add category varchar(30);
+
+update product set category ='portable' where id =106;
+
+alter table product add discount int;
+
+update product set discount = 0 where id =106;
+
+select productname, category, unitprice - discount as price from product;
+
+select shippingcompany, totalamount as totalprice from orders
+where shippingcompany like 'amazon' and totalamount > 1000;

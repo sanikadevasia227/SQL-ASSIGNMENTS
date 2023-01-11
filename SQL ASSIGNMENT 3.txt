@@ -1,0 +1,8 @@
+
+select * from orders where customer in (select id from customer where phone='3423567568');
+
+select * from product where category='portable';
+
+select * from orders where customer in(select id from customer where country not like 'german');
+
+select * from orders where id in (select orderid from orderitem where productid in (select id from product where productname like 'table'));
